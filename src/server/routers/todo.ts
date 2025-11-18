@@ -13,9 +13,9 @@ const listTodosSchema = z.object({
 // Helper to create TodoService instance
 function createTodoService(ownerAddress: string) {
   return new TodoService({
-    endpoint: 'http://207.180.219.86:9092',
-    appId: 'app_80a9b8f9525342b7',
-    apiKey: 'dev_key_12345678901234567890123456789012',
+    endpoint: process.env.ONCHAINDB_ENDPOINT || 'http://207.180.219.86:9092',
+    appId: process.env.ONCHAINDB_APP_ID || 'app_80a9b8f9525342b7',
+    apiKey: process.env.ONCHAINDB_API_KEY || 'dev_key_12345678901234567890123456789012',
     currentUserAddress: ownerAddress,
   });
 }

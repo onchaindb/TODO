@@ -7,9 +7,10 @@ import { CheckCircle2, Circle, Trash2, Loader2, Wallet, Search, Plus, X } from '
 import { createClient, OnChainDBClient } from '@enidon-ai/sdk';
 import {Todo} from "@/lib/services/TodoService";
 
-// Configuration
-const BACKEND_URL = 'http://207.180.219.86:9092';
-const APP_ID = 'app_80a9b8f9525342b7';
+// Configuration from environment variables
+const BACKEND_URL = process.env.NEXT_PUBLIC_ONCHAINDB_ENDPOINT || 'http://207.180.219.86:9092';
+const APP_ID = process.env.NEXT_PUBLIC_ONCHAINDB_APP_ID || 'app_80a9b8f9525342b7';
+const API_KEY = process.env.NEXT_PUBLIC_ONCHAINDB_API_KEY || 'dev_key_12345678901234567890123456789012';
 
 export default function Home() {
   const wallet = useKeplrWallet();
@@ -25,7 +26,7 @@ export default function Home() {
   useEffect(() => {
     const sdkClient = createClient({
       endpoint: BACKEND_URL,
-      apiKey: 'dev_key_12345678901234567890123456789012',
+      apiKey: API_KEY,
       appId: APP_ID
     });
     setClient(sdkClient);
