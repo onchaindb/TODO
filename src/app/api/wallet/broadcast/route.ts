@@ -67,13 +67,13 @@ export async function POST(request: NextRequest) {
                     mode: 127 // SIGN_MODE_LEGACY_AMINO_JSON (since we're using amino signing)
                 })
             }),
-            sequence: parseInt(signed.sequence) || 0
+            sequence: parseInt(signed.sequence) as never || 0
         });
 
         // Create fee
         const fee = Fee.fromPartial({
             amount: signed.fee.amount,
-            gasLimit: parseInt(signed.fee.gas) || 200000
+            gasLimit: parseInt(signed.fee.gas) as never || 200000
         });
 
         // Create AuthInfo
