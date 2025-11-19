@@ -1,7 +1,7 @@
 // TodoService using OnChainDB SDK
 // This connects to the db-client backend for real data operations
 
-import { createClient, DatabaseManager, OnChainDBClient } from '@enidon-ai/sdk';
+import { createClient, DatabaseManager, OnChainDBClient } from '@onchaindb/sdk';
 
 export interface Todo {
   id: string;

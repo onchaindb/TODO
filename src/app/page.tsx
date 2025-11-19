@@ -4,7 +4,7 @@ import {useState, useEffect, useCallback} from 'react';
 import { useKeplrWallet } from '@/hooks/useKeplrWallet';
 import { trpc } from '@/utils/trpc';
 import { CheckCircle2, Circle, Trash2, Loader2, Wallet, Search, Plus, X } from 'lucide-react';
-import { createClient, OnChainDBClient } from '@enidon-ai/sdk';
+import { createClient, OnChainDBClient } from '@onchaindb/sdk';
 import {Todo} from "@/lib/services/TodoService";
 
 // Configuration from environment variables
