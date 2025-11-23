@@ -260,27 +260,19 @@ export default function Home() {
         </div>
       </nav>
 
-      <main className="min-h-screen bg-[#f0f4ff] pt-[152px] pb-16 px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-[#f0f4ff] pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <div className="relative">
-              <div className="inline-block px-5 py-2 rounded-full text-xs font-bold tracking-[0.15em] mb-8 bg-transparent text-[#2563eb] border border-[rgba(37,99,235,0.3)] uppercase">
-                BUILT ON CELESTIA
-              </div>
-              <h1 className="text-5xl font-extrabold leading-tight mb-6 text-[var(--text-primary)] font-['Berkeley_Mono',_'JetBrains_Mono',_monospace] tracking-[-0.04em]">
-                Decentralized Task Management <span className="text-[var(--primary-blue)]">On-Chain</span>
+          {/* Header - Only show when not connected */}
+          {!wallet.isConnected && (
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold mb-3 text-[var(--text-primary)] font-['Berkeley_Mono',_'JetBrains_Mono',_monospace]">
+                OnChain TODO
               </h1>
-              {(todosQuery.isLoading || isProcessing) && (
-                <div className="absolute -right-12 top-1/2 -translate-y-1/2 z-50">
-                  <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
-                </div>
-              )}
-              <p className="text-[var(--text-secondary)] text-xl mb-10 leading-relaxed font-normal tracking-[-0.01em]">
-                Store and manage your tasks on Celestia with cryptographic verification
+              <p className="text-[var(--text-secondary)] text-sm">
+                Decentralized task management on Celestia
               </p>
             </div>
-          </div>
+          )}
 
         {/* Processing Overlay - View Blocking */}
         {isProcessing && (
@@ -299,7 +291,7 @@ export default function Home() {
         )}
 
         {/* Wallet Connection - Glass Card */}
-        <div className="bg-white/70 backdrop-blur-[10px] rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05),_inset_0_1px_0_rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.18)] p-6 mb-8 transition-all duration-300 hover:shadow-[0_12px_24px_rgba(37,99,235,0.1),_inset_0_1px_0_rgba(255,255,255,0.2)] hover:bg-white/80 hover:-translate-y-1">
+        <div className="bg-white/70 backdrop-blur-[10px] rounded-xl shadow-sm border border-[rgba(255,255,255,0.18)] p-4 mb-6 transition-all duration-300">
           {!wallet.isConnected ? (
             <div className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center shadow-[0_4px_12px_rgba(37,99,235,0.25)]">
@@ -373,7 +365,7 @@ export default function Home() {
             {/* Modal */}
             <div className="relative backdrop-blur-xl bg-white/90 rounded-2xl shadow-2xl border border-white/20 p-6 w-full max-w-md transform transition-all">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <h2 className="text-2xl font-bold text-[var(--text-primary)] font-['Berkeley_Mono',_'JetBrains_Mono',_monospace]">
                   Create New TODO
                 </h2>
                 <button
@@ -455,30 +447,30 @@ export default function Home() {
 
         {/* TODO List - Glass Card */}
         {wallet.isConnected && (
-          <div className="bg-white/70 backdrop-blur-[10px] rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05),_inset_0_1px_0_rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.18)] p-6 transition-all duration-300 hover:shadow-[0_12px_24px_rgba(37,99,235,0.1),_inset_0_1px_0_rgba(255,255,255,0.2)] hover:bg-white/80">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-[var(--text-primary)] font-['Berkeley_Mono',_'JetBrains_Mono',_monospace]">My TODOs</h2>
+          <div className="bg-white/70 backdrop-blur-[10px] rounded-xl shadow-sm border border-[rgba(255,255,255,0.18)] p-4 transition-all duration-300">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-[var(--text-primary)] font-['Berkeley_Mono',_'JetBrains_Mono',_monospace]">My TODOs</h2>
             </div>
 
             {/* Search Bar - Glassy */}
-            <div className="mb-6">
+            <div className="mb-4">
               <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search TODOs..."
-                  className="w-full pl-12 pr-4 py-3 bg-white/50 backdrop-blur border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="w-full pl-10 pr-3 py-2 text-sm bg-white/50 backdrop-blur border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 />
               </div>
             </div>
 
             {/* Tabs - Modern */}
-            <div className="flex gap-2 mb-6 bg-gray-100/80 rounded-xl p-1">
+            <div className="flex gap-2 mb-4 bg-gray-100/80 rounded-lg p-1">
               <button
                 onClick={() => setActiveTab('active')}
-                className={`flex-1 px-4 py-2.5 font-medium rounded-lg transition-all ${
+                className={`flex-1 px-3 py-2 text-sm font-medium rounded-md transition-all ${
                   activeTab === 'active'
                     ? 'bg-white text-blue-600 shadow-sm'
                     : 'text-gray-600 hover:text-gray-900'
@@ -486,7 +478,7 @@ export default function Home() {
               >
                 Active
                 {activeCount > 0 && (
-                  <span className={`ml-2 px-2 py-0.5 text-xs rounded-full ${
+                  <span className={`ml-2 px-1.5 py-0.5 text-xs rounded-full ${
                     activeTab === 'active'
                       ? 'bg-blue-100 text-blue-600'
                       : 'bg-gray-200 text-gray-600'
@@ -497,7 +489,7 @@ export default function Home() {
               </button>
               <button
                 onClick={() => setActiveTab('completed')}
-                className={`flex-1 px-4 py-2.5 font-medium rounded-lg transition-all ${
+                className={`flex-1 px-3 py-2 text-sm font-medium rounded-md transition-all ${
                   activeTab === 'completed'
                     ? 'bg-white text-blue-600 shadow-sm'
                     : 'text-gray-600 hover:text-gray-900'
@@ -505,7 +497,7 @@ export default function Home() {
               >
                 Completed
                 {completedCount > 0 && (
-                  <span className={`ml-2 px-2 py-0.5 text-xs rounded-full ${
+                  <span className={`ml-2 px-1.5 py-0.5 text-xs rounded-full ${
                     activeTab === 'completed'
                       ? 'bg-green-100 text-green-600'
                       : 'bg-gray-200 text-gray-600'
@@ -517,20 +509,20 @@ export default function Home() {
             </div>
 
             {todosQuery.isError && (
-              <div className="text-center py-8">
-                <p className="text-red-500">Failed to load TODOs. Please try again.</p>
+              <div className="text-center py-6">
+                <p className="text-red-500 text-sm">Failed to load TODOs. Please try again.</p>
               </div>
             )}
 
             {!todosQuery.isError && todos.filter(t => t.title !== '[DELETED]').length === 0 && (
-              <div className="text-center py-8">
-                <p className="text-gray-500">No TODOs yet. Create your first TODO above!</p>
+              <div className="text-center py-6">
+                <p className="text-gray-500 text-sm">No TODOs yet. Click + to create one!</p>
               </div>
             )}
 
             {!todosQuery.isError && filteredTodos.length === 0 && todos.filter(t => t.title !== '[DELETED]').length > 0 && (
-              <div className="text-center py-8">
-                <p className="text-gray-500">
+              <div className="text-center py-6">
+                <p className="text-gray-500 text-sm">
                   {searchQuery.trim()
                     ? `No TODOs match "${searchQuery}"`
                     : `No ${activeTab} TODOs`
@@ -540,11 +532,11 @@ export default function Home() {
             )}
 
             {!todosQuery.isError && filteredTodos.length > 0 && (
-              <ul className="space-y-3">
+              <ul className="space-y-2">
                 {filteredTodos.map((todo) => (
                   <li
                     key={todo.id}
-                    className={`flex items-start gap-4 p-5 rounded-xl border transition-all hover:shadow-lg ${
+                    className={`flex items-start gap-3 p-3 rounded-lg border transition-all hover:shadow-md ${
                       todo.completedAt
                         ? 'bg-white/40 backdrop-blur border-gray-200/50'
                         : 'bg-white/60 backdrop-blur border-gray-200'
@@ -556,14 +548,14 @@ export default function Home() {
                       className="mt-0.5 flex-shrink-0 disabled:opacity-50 transition-transform hover:scale-110"
                     >
                       {todo.completedAt ? (
-                        <CheckCircle2 className="w-6 h-6 text-green-500" />
+                        <CheckCircle2 className="w-5 h-5 text-green-500" />
                       ) : (
-                        <Circle className="w-6 h-6 text-gray-300 hover:text-blue-500" />
+                        <Circle className="w-5 h-5 text-gray-300 hover:text-blue-500" />
                       )}
                     </button>
                     <div className="flex-grow min-w-0">
                       <h3
-                        className={`font-semibold text-lg ${
+                        className={`font-semibold text-base ${
                           todo.completedAt
                             ? 'text-gray-400 line-through'
                             : 'text-gray-900'
@@ -573,14 +565,14 @@ export default function Home() {
                       </h3>
                       {todo.description && (
                         <p
-                          className={`text-sm mt-1.5 ${
+                          className={`text-sm mt-1 ${
                             todo.completedAt ? 'text-gray-400' : 'text-gray-600'
                           }`}
                         >
                           {todo.description}
                         </p>
                       )}
-                      <p className="text-xs text-gray-400 mt-2">
+                      <p className="text-xs text-gray-400 mt-1">
                         {new Date(todo.createdAt).toLocaleDateString('en-US', {
                           month: 'short',
                           day: 'numeric',
@@ -592,9 +584,9 @@ export default function Home() {
                     <button
                       onClick={() => handleDeleteTodo(todo.id)}
                       disabled={isLoading}
-                      className="flex-shrink-0 p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg disabled:opacity-50 transition-all"
+                      className="flex-shrink-0 p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-md disabled:opacity-50 transition-all"
                     >
-                      <Trash2 className="w-5 h-5" />
+                      <Trash2 className="w-4 h-4" />
                     </button>
                   </li>
                 ))}
