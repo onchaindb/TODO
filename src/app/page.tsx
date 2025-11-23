@@ -235,24 +235,52 @@ export default function Home() {
   const completedCount = todos.filter(t => t.completedAt && !t.deletedAt).length;
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="relative">
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">
+    <>
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 w-full bg-white shadow-sm z-50 transition-all duration-300 px-0 py-4 min-h-[72px]">
+        <div className="max-w-[1200px] mx-auto px-5 flex justify-between items-center">
+          <div className="flex items-center gap-3.5">
+            <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="8" fill="#2563eb"/>
+              <path d="M8 12L16 8L24 12V20L16 24L8 20V12Z" stroke="white" strokeWidth="2" fill="none"/>
+              <circle cx="16" cy="16" r="3" fill="white"/>
+            </svg>
+            <span className="text-[1.375rem] font-bold text-[#1e293b] font-['Berkeley_Mono',_'JetBrains_Mono',_monospace] tracking-[-0.03em]">
               OnChainDB TODO
-            </h1>
-            {(todosQuery.isLoading || isProcessing) && (
-              <div className="absolute -right-12 top-1/2 -translate-y-1/2 z-50">
-                <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
-              </div>
-            )}
+            </span>
           </div>
-          <p className="text-gray-600 text-lg">
-            Decentralized task management on Celestia
-          </p>
+          <div className="flex items-center gap-8">
+            <a href="https://onchaindb.io" className="text-[#475569] font-medium text-[0.95rem] hover:text-[#2563eb] transition-colors">
+              Main Site
+            </a>
+            <a href="https://onchaindb.io/llms.txt" className="text-[#475569] font-medium text-[0.95rem] hover:text-[#2563eb] transition-colors">
+              Docs
+            </a>
+          </div>
         </div>
+      </nav>
+
+      <main className="min-h-screen bg-[#f0f4ff] pt-[152px] pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <div className="relative">
+              <div className="inline-block px-5 py-2 rounded-full text-xs font-bold tracking-[0.15em] mb-8 bg-transparent text-[#2563eb] border border-[rgba(37,99,235,0.3)] uppercase">
+                BUILT ON CELESTIA
+              </div>
+              <h1 className="text-5xl font-extrabold leading-tight mb-6 text-[var(--text-primary)] font-['Berkeley_Mono',_'JetBrains_Mono',_monospace] tracking-[-0.04em]">
+                Decentralized Task Management <span className="text-[var(--primary-blue)]">On-Chain</span>
+              </h1>
+              {(todosQuery.isLoading || isProcessing) && (
+                <div className="absolute -right-12 top-1/2 -translate-y-1/2 z-50">
+                  <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+                </div>
+              )}
+              <p className="text-[var(--text-secondary)] text-xl mb-10 leading-relaxed font-normal tracking-[-0.01em]">
+                Store and manage your tasks on Celestia with cryptographic verification
+              </p>
+            </div>
+          </div>
 
         {/* Processing Overlay - View Blocking */}
         {isProcessing && (
@@ -270,15 +298,15 @@ export default function Home() {
           </div>
         )}
 
-        {/* Wallet Connection - Glassy Card */}
-        <div className="backdrop-blur-xl bg-white/70 rounded-2xl shadow-xl border border-white/20 p-6 mb-8">
+        {/* Wallet Connection - Glass Card */}
+        <div className="bg-white/70 backdrop-blur-[10px] rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05),_inset_0_1px_0_rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.18)] p-6 mb-8 transition-all duration-300 hover:shadow-[0_12px_24px_rgba(37,99,235,0.1),_inset_0_1px_0_rgba(255,255,255,0.2)] hover:bg-white/80 hover:-translate-y-1">
           {!wallet.isConnected ? (
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center shadow-[0_4px_12px_rgba(37,99,235,0.25)]">
                 <Wallet className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Connect Your Wallet</h2>
-              <p className="text-gray-600 mb-6">
+              <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-2 font-['Berkeley_Mono',_'JetBrains_Mono',_monospace]">Connect Your Wallet</h2>
+              <p className="text-[var(--text-secondary)] mb-6">
                 Connect Keplr to start managing your TODOs
               </p>
               {!wallet.isKeplrInstalled() ? (
@@ -286,7 +314,7 @@ export default function Home() {
                   href={wallet.getInstallUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-3 px-8 rounded-xl transition-all transform hover:scale-105"
+                  className="inline-block bg-gradient-to-br from-[rgba(29,78,216,0.95)] via-[rgba(37,99,235,0.9)] to-[rgba(29,78,216,0.95)] backdrop-blur-[10px] text-white font-semibold py-3 px-8 border border-[rgba(255,255,255,0.18)] rounded-xl transition-all duration-500 hover:-translate-y-1 hover:scale-[1.02] shadow-[0_10px_40px_rgba(37,99,235,0.15),_inset_0_4px_12px_rgba(255,255,255,0.15),_inset_0_-4px_12px_rgba(37,99,235,0.08)]"
                 >
                   Install Keplr
                 </a>
@@ -294,7 +322,7 @@ export default function Home() {
                 <button
                   onClick={handleConnect}
                   disabled={wallet.isConnecting}
-                  className="inline-flex items-center bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-3 px-8 rounded-xl transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="inline-flex items-center bg-gradient-to-br from-[rgba(29,78,216,0.95)] via-[rgba(37,99,235,0.9)] to-[rgba(29,78,216,0.95)] backdrop-blur-[10px] text-white font-semibold py-3 px-8 border border-[rgba(255,255,255,0.18)] rounded-xl transition-all duration-500 hover:-translate-y-1 hover:scale-[1.02] shadow-[0_10px_40px_rgba(37,99,235,0.15),_inset_0_4px_12px_rgba(255,255,255,0.15),_inset_0_-4px_12px_rgba(37,99,235,0.08)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                   {wallet.isConnecting ? (
                     <>
@@ -313,12 +341,12 @@ export default function Home() {
           ) : (
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#22c55e] to-[#2563eb] flex items-center justify-center shadow-[0_4px_12px_rgba(34,197,94,0.25)]">
                   <Wallet className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 uppercase tracking-wide">Connected</p>
-                  <p className="font-mono text-sm font-semibold text-gray-900 truncate max-w-xs">
+                  <p className="text-xs text-[var(--text-secondary)] uppercase tracking-wide">Connected</p>
+                  <p className="font-mono text-sm font-semibold text-[var(--text-primary)] truncate max-w-xs">
                     {wallet.address}
                   </p>
                 </div>
@@ -398,7 +426,7 @@ export default function Home() {
                   <button
                     type="submit"
                     disabled={!newTodoTitle.trim() || isProcessing}
-                    className="flex-1 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-3 px-4 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    className="flex-1 bg-gradient-to-br from-[rgba(29,78,216,0.95)] via-[rgba(37,99,235,0.9)] to-[rgba(29,78,216,0.95)] backdrop-blur-[10px] text-white font-semibold py-3 px-4 border border-[rgba(255,255,255,0.18)] rounded-xl transition-all duration-500 hover:-translate-y-1 hover:scale-[1.02] shadow-[0_10px_40px_rgba(37,99,235,0.15),_inset_0_4px_12px_rgba(255,255,255,0.15),_inset_0_-4px_12px_rgba(37,99,235,0.08)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center"
                   >
                     {isProcessing ? (
                       <>
@@ -419,17 +447,17 @@ export default function Home() {
         {wallet.isConnected && (
           <button
             onClick={() => setIsCreateModalOpen(true)}
-            className="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-full shadow-2xl flex items-center justify-center transition-all transform hover:scale-110 z-40"
+            className="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-br from-[#2563eb] to-[#3b82f6] text-white rounded-full shadow-[0_10px_40px_rgba(37,99,235,0.3)] flex items-center justify-center transition-all duration-500 hover:-translate-y-1 hover:scale-110 z-40"
           >
             <Plus className="w-8 h-8" />
           </button>
         )}
 
-        {/* TODO List - Glassy Card */}
+        {/* TODO List - Glass Card */}
         {wallet.isConnected && (
-          <div className="backdrop-blur-xl bg-white/70 rounded-2xl shadow-xl border border-white/20 p-6">
+          <div className="bg-white/70 backdrop-blur-[10px] rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.05),_inset_0_1px_0_rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.18)] p-6 transition-all duration-300 hover:shadow-[0_12px_24px_rgba(37,99,235,0.1),_inset_0_1px_0_rgba(255,255,255,0.2)] hover:bg-white/80">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">My TODOs</h2>
+              <h2 className="text-2xl font-bold text-[var(--text-primary)] font-['Berkeley_Mono',_'JetBrains_Mono',_monospace]">My TODOs</h2>
             </div>
 
             {/* Search Bar - Glassy */}
@@ -575,22 +603,76 @@ export default function Home() {
           </div>
         )}
 
-        {/* Footer */}
-        <div className="text-center mt-12 text-sm text-gray-500">
-          <p>
-            Powered by{' '}
-            <a
-              href="https://celestia.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-purple-600 font-medium transition-colors"
-            >
-              Celestia
-            </a>{' '}
-            × OnChainDB SDK
-          </p>
         </div>
-      </div>
-    </main>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-[#0a0e1a] text-white p-0 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-px bg-gradient-to-r from-transparent via-[#2563eb] to-transparent opacity-50"></div>
+
+        <div className="bg-gradient-to-br from-[#0f172a] to-[#1a1f2e] py-10 relative border-t border-[rgba(37,99,235,0.2)]">
+          <div className="max-w-[1200px] mx-auto px-5 relative z-10">
+            <div className="flex items-center justify-between gap-12 flex-wrap">
+              <div className="flex items-center gap-8">
+                <div className="flex items-center gap-3">
+                  <svg width="36" height="36" viewBox="0 0 32 32" fill="none" className="drop-shadow-[0_2px_8px_rgba(37,99,235,0.3)]">
+                    <rect width="32" height="32" rx="8" fill="#2563eb"/>
+                    <path d="M8 12L16 8L24 12V20L16 24L8 20V12Z" stroke="white" strokeWidth="2" fill="none"/>
+                    <circle cx="16" cy="16" r="3" fill="white"/>
+                  </svg>
+                  <span className="text-xl font-bold font-['Berkeley_Mono',_'JetBrains_Mono',_monospace] tracking-[-0.025em]">
+                    OnChainDB
+                  </span>
+                </div>
+                <p className="text-[#64748b] text-sm font-normal pl-4 border-l border-[#334155]">
+                  The database that lives on-chain
+                </p>
+              </div>
+
+              <div className="flex items-center gap-10">
+                <a href="https://onchaindb.io#features" className="text-[#94a3b8] text-sm font-medium hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-[#2563eb] after:transition-all hover:after:w-full">
+                  Features
+                </a>
+                <a href="https://onchaindb.io/llms.txt" className="text-[#94a3b8] text-sm font-medium hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-[#2563eb] after:transition-all hover:after:w-full">
+                  Docs
+                </a>
+                <a href="https://github.com/onchaindb" className="text-[#94a3b8] text-sm font-medium hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-[#2563eb] after:transition-all hover:after:w-full">
+                  GitHub
+                </a>
+              </div>
+
+              <div className="flex gap-3">
+                <a href="https://x.com/onchaindb" aria-label="Twitter" className="w-9 h-9 flex items-center justify-center bg-white/5 border border-white/10 rounded-lg text-[#64748b] hover:bg-[rgba(37,99,235,0.15)] hover:border-[rgba(37,99,235,0.3)] hover:text-white hover:-translate-y-0.5 transition-all">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                  </svg>
+                </a>
+                <a href="https://github.com/onchaindb" aria-label="GitHub" className="w-9 h-9 flex items-center justify-center bg-white/5 border border-white/10 rounded-lg text-[#64748b] hover:bg-[rgba(37,99,235,0.15)] hover:border-[rgba(37,99,235,0.3)] hover:text-white hover:-translate-y-0.5 transition-all">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-[#050711] py-5 border-t border-white/5">
+          <div className="max-w-[1200px] mx-auto px-5 flex justify-between items-center flex-wrap gap-4">
+            <p className="text-[#475569] text-sm m-0 font-normal">
+              &copy; 2025 OnChainDB. All rights reserved.
+            </p>
+            <div className="flex gap-10">
+              <a href="#" className="text-[#475569] text-sm font-normal hover:text-[#94a3b8] transition-all relative after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-px after:bg-[#2563eb] after:transition-all hover:after:w-full">
+                Privacy Policy
+              </a>
+              <a href="#" className="text-[#475569] text-sm font-normal hover:text-[#94a3b8] transition-all relative after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-px after:bg-[#2563eb] after:transition-all hover:after:w-full">
+                Terms of Service
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </>
   );
 }
