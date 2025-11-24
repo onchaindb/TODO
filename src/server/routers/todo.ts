@@ -12,12 +12,14 @@ const listTodosSchema = z.object({
 
 // Helper to create TodoService instance
 function createTodoService(ownerAddress: string) {
-  return new TodoService({
+  const config = {
     endpoint: process.env.ONCHAINDB_ENDPOINT || 'http://localhost:9092',
     appId: process.env.ONCHAINDB_APP_ID || 'app_80a9b8f9525342b7',
     apiKey: process.env.ONCHAINDB_API_KEY || 'dev_key_12345678901234567890123456789012',
     currentUserAddress: ownerAddress,
-  });
+  }
+  console.log(config);
+  return new TodoService(config);
 }
 
 export const todoRouter = router({
