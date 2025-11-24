@@ -10,12 +10,16 @@ const listTodosSchema = z.object({
   ownerAddress: z.string().min(1),
 });
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_ONCHAINDB_ENDPOINT || "http://localhost:9092";
+const APP_ID = process.env.NEXT_PUBLIC_ONCHAINDB_APP_ID || 'app_80a9b8f9525342b7';
+const API_KEY = process.env.NEXT_PUBLIC_ONCHAINDB_API_KEY || 'dev_key_12345678901234567890123456789012';
+
 // Helper to create TodoService instance
 function createTodoService(ownerAddress: string) {
   const config = {
-    endpoint: process.env.ONCHAINDB_ENDPOINT || 'http://localhost:9092',
-    appId: process.env.ONCHAINDB_APP_ID || 'app_80a9b8f9525342b7',
-    apiKey: process.env.ONCHAINDB_API_KEY || 'dev_key_12345678901234567890123456789012',
+    endpoint: BACKEND_URL,
+    appId: APP_ID,
+    apiKey: API_KEY,
     currentUserAddress: ownerAddress,
   }
   console.log(config);
