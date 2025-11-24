@@ -8,7 +8,7 @@ import { createClient, OnChainDBClient } from '@onchaindb/sdk';
 import {Todo} from "@/lib/services/TodoService";
 
 // Configuration from environment variables
-const BACKEND_URL = process.env.NEXT_PUBLIC_ONCHAINDB_ENDPOINT || 'http://207.180.219.86:9092';
+const BACKEND_URL = process.env.NEXT_PUBLIC_ONCHAINDB_ENDPOINT || "http://localhost:9092";
 const APP_ID = process.env.NEXT_PUBLIC_ONCHAINDB_APP_ID || 'app_80a9b8f9525342b7';
 const API_KEY = process.env.NEXT_PUBLIC_ONCHAINDB_API_KEY || 'dev_key_12345678901234567890123456789012';
 

@@ -9,12 +9,12 @@
  * - completed (hash index - for filtering by status)
  *
  * Usage:
- *   node add-todo-indexes.js --app-id app_your_app_id [--endpoint http://207.180.219.86:9092]
+ *   node add-todo-indexes.js --app-id app_your_app_id [--endpoint http://localhost:9092]
  */
 
 // Configuration
 const CONFIG = {
-  endpoint: process.env.ONCHAINDB_ENDPOINT || 'http://207.180.219.86:9092',
+  endpoint: process.env.ONCHAINDB_ENDPOINT || 'http://localhost:9092',
   apiKey: process.env.ONCHAINDB_API_KEY || 'dev_key_12345678901234567890123456789012',
   appId: null, // Set via CLI argument
 };
@@ -34,7 +34,7 @@ function parseArgs() {
 
   if (!CONFIG.appId) {
     console.error('❌ Error: --app-id is required');
-    console.log('\nUsage: node add-todo-indexes.js --app-id app_your_app_id [--endpoint http://207.180.219.86:9092]');
+    console.log('\nUsage: node add-todo-indexes.js --app-id app_your_app_id [--endpoint http://localhost:9092]');
     process.exit(1);
   }
 }

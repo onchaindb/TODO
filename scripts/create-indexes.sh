@@ -5,7 +5,7 @@
 
 APP_ID="app_80a9b8f9525342b7"
 API_KEY="dev_key_12345678901234567890123456789012"
-BACKEND_URL="http://207.180.219.86:9092"
+BACKEND_URL="http://localhost:9092"
 
 echo "🔨 Creating indexes for TODO app ($APP_ID)..."
 echo ""

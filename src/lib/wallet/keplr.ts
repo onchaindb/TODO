@@ -227,7 +227,7 @@ export class KeplrWallet {
 
     try {
       // Use broker's balance endpoint to avoid CORS issues
-      const response = await fetch(`http://207.180.219.86:9092/balance/${this.state.address}`);
+      const response = await fetch(`http://localhost:9092/balance/${this.state.address}`);
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
