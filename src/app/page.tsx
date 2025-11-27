@@ -306,7 +306,7 @@ export default function Home() {
                   href={wallet.getInstallUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-gradient-to-br from-[rgba(29,78,216,0.95)] via-[rgba(37,99,235,0.9)] to-[rgba(29,78,216,0.95)] backdrop-blur-[10px] text-white font-semibold py-3 px-8 border border-[rgba(255,255,255,0.18)] rounded-xl transition-all duration-500 hover:-translate-y-1 hover:scale-[1.02] shadow-[0_10px_40px_rgba(37,99,235,0.15),_inset_0_4px_12px_rgba(255,255,255,0.15),_inset_0_-4px_12px_rgba(37,99,235,0.08)]"
+                  className="inline-block bg-white text-blue-600 font-semibold py-3 px-8 border-2 border-blue-600 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-600 hover:text-white shadow-sm hover:shadow-lg"
                 >
                   Install Keplr
                 </a>
@@ -314,7 +314,7 @@ export default function Home() {
                 <button
                   onClick={handleConnect}
                   disabled={wallet.isConnecting}
-                  className="inline-flex items-center bg-gradient-to-br from-[rgba(29,78,216,0.95)] via-[rgba(37,99,235,0.9)] to-[rgba(29,78,216,0.95)] backdrop-blur-[10px] text-white font-semibold py-3 px-8 border border-[rgba(255,255,255,0.18)] rounded-xl transition-all duration-500 hover:-translate-y-1 hover:scale-[1.02] shadow-[0_10px_40px_rgba(37,99,235,0.15),_inset_0_4px_12px_rgba(255,255,255,0.15),_inset_0_-4px_12px_rgba(37,99,235,0.08)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="inline-flex items-center bg-white text-blue-600 font-semibold py-3 px-8 border-2 border-blue-600 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-600 hover:text-white shadow-sm hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-blue-600"
                 >
                   {wallet.isConnecting ? (
                     <>
@@ -411,14 +411,14 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={() => setIsCreateModalOpen(false)}
-                    className="flex-1 px-4 py-3 border border-gray-300 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-colors"
+                    className="flex-1 px-4 py-3 border-2 border-gray-300 text-gray-700 font-medium rounded-xl hover:border-gray-400 transition-all duration-300"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={!newTodoTitle.trim() || isProcessing}
-                    className="flex-1 bg-gradient-to-br from-[rgba(29,78,216,0.95)] via-[rgba(37,99,235,0.9)] to-[rgba(29,78,216,0.95)] backdrop-blur-[10px] text-white font-semibold py-3 px-4 border border-[rgba(255,255,255,0.18)] rounded-xl transition-all duration-500 hover:-translate-y-1 hover:scale-[1.02] shadow-[0_10px_40px_rgba(37,99,235,0.15),_inset_0_4px_12px_rgba(255,255,255,0.15),_inset_0_-4px_12px_rgba(37,99,235,0.08)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center"
+                    className="flex-1 bg-white text-blue-600 font-semibold py-3 px-4 border-2 border-blue-600 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-600 hover:text-white shadow-sm hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-blue-600 flex items-center justify-center"
                   >
                     {isProcessing ? (
                       <>
@@ -439,7 +439,7 @@ export default function Home() {
         {wallet.isConnected && (
           <button
             onClick={() => setIsCreateModalOpen(true)}
-            className="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-br from-[#2563eb] to-[#3b82f6] text-white rounded-full shadow-[0_10px_40px_rgba(37,99,235,0.3)] flex items-center justify-center transition-all duration-500 hover:-translate-y-1 hover:scale-110 z-40"
+            className="fixed bottom-8 right-8 w-16 h-16 bg-white text-blue-600 border-2 border-blue-600 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:-translate-y-1 hover:bg-blue-600 hover:text-white hover:shadow-xl z-40"
           >
             <Plus className="w-8 h-8" />
           </button>
