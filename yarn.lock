@@ -166,10 +166,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@onchaindb/sdk@0.0.4":
-  version "0.0.4"
-  resolved "https://npm.pkg.github.com/download/@onchaindb/sdk/0.0.4/2a5d8e8b69e9493d10f5840521057462ab7ff39d"
-  integrity sha512-5hC9DX4si1nOtStM5nYmykRMdfEqvt46+3ntNC/91CcbJd5QkIKQn+Auw2N7dflgfajZ/Dib8rHx0BSf3ConMw==
+"@onchaindb/sdk@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.npmjs.org/@onchaindb/sdk/-/sdk-0.0.6.tgz"
+  integrity sha512-ZndfVUHb3Tzipz7YIfEGOAFDC8pQEvWgr1LkM+M2fIfw64ZdWqrD4Yr3QmoAod4xfgC2IEkkum8cw464ibmVHg==
   dependencies:
     axios "^1.6.0"
     eventemitter3 "^5.0.1"
