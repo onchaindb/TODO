@@ -4,7 +4,7 @@ import {useState, useEffect, useCallback} from 'react';
 import { useKeplrWallet } from '@/hooks/useKeplrWallet';
 import { trpc } from '@/utils/trpc';
 import { CheckCircle2, Circle, Trash2, Loader2, Wallet, Search, Plus, X } from 'lucide-react';
-import { createClient, OnChainDBClient } from '@onchaindb/sdk';
+import {createClient, OnChainDBClient, X402PaymentRequirement, X402PaymentResult} from '@onchaindb/sdk';
 import {Todo} from "@/lib/services/TodoService";
 
 // Configuration from environment variables
@@ -77,7 +77,7 @@ export default function Home() {
       const paymentCallback = async (quote: any) => {
         console.log('💰 [PAYMENT CALLBACK] Called with quote:', quote);
 
-        const costInUtia = Math.ceil((quote.total_cost_tia || 0) * 1_000_000);
+        const costInUtia = Math.ceil((quote.total_cost_tia || +quote.totalCostTia || 0) * 1_000_000);
 
         if (isNaN(costInUtia) || costInUtia <= 0) {
           console.error('❌ [PAYMENT CALLBACK] Invalid cost:', costInUtia);
@@ -89,7 +89,7 @@ export default function Home() {
         let broadcastResult;
         try {
           broadcastResult = await wallet.signAndBroadcast(
-            quote.broker_address,
+            quote.brokerAddress,
             `${costInUtia}utia`,
             `OnChainDB TODO ${operationLabels[operation]}`
           );
@@ -104,9 +104,12 @@ export default function Home() {
           throw new Error(`Payment failed: ${broadcastResult.error}`);
         }
 
-        const paymentData = {
+        const paymentData: X402PaymentResult = {
           txHash: broadcastResult.txHash,
-          network: 'mocha-4'
+          network: 'mocha-4',
+          sender: wallet.address as string,
+          chainType: "cosmos",
+          paymentMethod: "native"
         };
 
         console.log('✅ [PAYMENT CALLBACK] Returning payment data:', paymentData);
