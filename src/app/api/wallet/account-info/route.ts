@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { CELESTIA_CONFIG } from '@/lib/config';
 
-const CELESTIA_REST = 'https://api-mocha.pops.one';
+const CELESTIA_REST = CELESTIA_CONFIG.rest;
 
 export async function GET(request: NextRequest) {
   try {

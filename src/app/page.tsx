@@ -6,11 +6,13 @@ import { trpc } from '@/utils/trpc';
 import { CheckCircle2, Circle, Trash2, Loader2, Wallet, Search, Plus, X } from 'lucide-react';
 import {createClient, OnChainDBClient, X402PaymentRequirement, X402PaymentResult} from '@onchaindb/sdk';
 import {Todo} from "@/lib/services/TodoService";
+import { CELESTIA_CHAIN_CONFIG } from '@/lib/wallet/keplr';
+import { CONFIG } from '@/lib/config';
 
-// Configuration from environment variables
-const BACKEND_URL = process.env.NEXT_PUBLIC_ONCHAINDB_ENDPOINT || "http://localhost:9092";
-const APP_ID = process.env.NEXT_PUBLIC_ONCHAINDB_APP_ID || 'app_80a9b8f9525342b7';
-const API_KEY = process.env.NEXT_PUBLIC_ONCHAINDB_API_KEY || 'dev_key_12345678901234567890123456789012';
+// Use centralized configuration
+const BACKEND_URL = CONFIG.endpoint;
+const APP_ID = CONFIG.appId;
+const API_KEY = CONFIG.apiKey;
 
 export default function Home() {
   const wallet = useKeplrWallet();
@@ -106,7 +108,7 @@ export default function Home() {
 
         const paymentData: X402PaymentResult = {
           txHash: broadcastResult.txHash,
-          network: 'mocha-4',
+          network: CELESTIA_CHAIN_CONFIG.chainId,
           sender: wallet.address as string,
           chainType: "cosmos",
           paymentMethod: "native"

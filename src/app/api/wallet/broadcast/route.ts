@@ -4,8 +4,9 @@ import {PubKey} from 'cosmjs-types/cosmos/crypto/secp256k1/keys';
 import {Any} from 'cosmjs-types/google/protobuf/any';
 import {MsgSend} from 'cosmjs-types/cosmos/bank/v1beta1/tx';
 import {fromBase64, toBase64} from '@cosmjs/encoding';
+import {CELESTIA_CONFIG} from '@/lib/config';
 
-const CELESTIA_REST = 'https://api-mocha.pops.one';
+const CELESTIA_REST = CELESTIA_CONFIG.rest;
 
 export async function POST(request: NextRequest) {
     try {

@@ -1,12 +1,13 @@
 import { Window as KeplrWindow } from "@keplr-wallet/types";
 import { OfflineSigner } from "@cosmjs/proto-signing";
+import { CONFIG, CELESTIA_CONFIG } from "@/lib/config";
 
 declare global {
   interface Window extends KeplrWindow {}
 }
 
 // Celestia Mocha Testnet configuration
-export const CELESTIA_TESTNET_CONFIG = {
+const CELESTIA_TESTNET_CONFIG = {
   chainId: "mocha-4",
   chainName: "Celestia Mocha Testnet",
   rpc: "https://rpc-mocha.pops.one",
@@ -47,6 +48,61 @@ export const CELESTIA_TESTNET_CONFIG = {
     coinDecimals: 6,
   },
 };
+
+// Celestia Mainnet configuration
+const CELESTIA_MAINNET_CONFIG = {
+  chainId: "celestia",
+  chainName: "Celestia",
+  rpc: "https://rpc.celestia.pops.one",
+  rest: "https://api.celestia.pops.one",
+  bip44: {
+    coinType: 118,
+  },
+  bech32Config: {
+    bech32PrefixAccAddr: "celestia",
+    bech32PrefixAccPub: "celestiapub",
+    bech32PrefixValAddr: "celestiavaloper",
+    bech32PrefixValPub: "celestiavaloperpub",
+    bech32PrefixConsAddr: "celestiavalcons",
+    bech32PrefixConsPub: "celestiavalconspub",
+  },
+  currencies: [
+    {
+      coinDenom: "TIA",
+      coinMinimalDenom: "utia",
+      coinDecimals: 6,
+    },
+  ],
+  feeCurrencies: [
+    {
+      coinDenom: "TIA",
+      coinMinimalDenom: "utia",
+      coinDecimals: 6,
+      gasPriceStep: {
+        low: 0.01,
+        average: 0.02,
+        high: 0.1,
+      },
+    },
+  ],
+  stakeCurrency: {
+    coinDenom: "TIA",
+    coinMinimalDenom: "utia",
+    coinDecimals: 6,
+  },
+};
+
+// Get network config based on NEXT_PUBLIC_NETWORK environment variable
+function getKeplrChainConfig() {
+  const network = process.env.NEXT_PUBLIC_NETWORK;
+  if (network === "celestia") {
+    return CELESTIA_MAINNET_CONFIG;
+  }
+  return CELESTIA_TESTNET_CONFIG;
+}
+
+// Export the active config for external use
+export const CELESTIA_CHAIN_CONFIG = getKeplrChainConfig();
 
 export interface WalletState {
   isConnected: boolean;
@@ -119,7 +175,7 @@ export class KeplrWallet {
       }
 
       // Try to get existing connection
-      const offlineSigner = window.keplr.getOfflineSigner(CELESTIA_TESTNET_CONFIG.chainId);
+      const offlineSigner = window.keplr.getOfflineSigner(CELESTIA_CHAIN_CONFIG.chainId);
       const accounts = await offlineSigner.getAccounts();
 
       if (accounts.length > 0) {
@@ -148,19 +204,19 @@ export class KeplrWallet {
     try {
       this.updateState({ isConnecting: true, error: null });
 
-      // Add Celestia Mocha testnet to Keplr if not already added
+      // Add Celestia network to Keplr if not already added
       try {
-        await window.keplr.experimentalSuggestChain(CELESTIA_TESTNET_CONFIG);
+        await window.keplr.experimentalSuggestChain(CELESTIA_CHAIN_CONFIG);
       } catch (chainError) {
-        console.warn("Failed to add Celestia testnet to Keplr:", chainError);
+        console.warn("Failed to add Celestia network to Keplr:", chainError);
         // Continue anyway, chain might already be added
       }
 
-      // Enable Keplr for Celestia testnet
-      await window.keplr.enable(CELESTIA_TESTNET_CONFIG.chainId);
+      // Enable Keplr for Celestia network
+      await window.keplr.enable(CELESTIA_CHAIN_CONFIG.chainId);
 
       // Get the offline signer
-      const offlineSigner = window.keplr.getOfflineSigner(CELESTIA_TESTNET_CONFIG.chainId);
+      const offlineSigner = window.keplr.getOfflineSigner(CELESTIA_CHAIN_CONFIG.chainId);
       const accounts = await offlineSigner.getAccounts();
 
       if (accounts.length === 0) {
@@ -227,7 +283,7 @@ export class KeplrWallet {
 
     try {
       // Use broker's balance endpoint to avoid CORS issues
-      const response = await fetch(`http://localhost:9092/balance/${this.state.address}`);
+      const response = await fetch(`${CONFIG.endpoint}/balance/${this.state.address}`);
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
@@ -277,7 +333,7 @@ export class KeplrWallet {
       const amountValue = amount.replace(/[^0-9]/g, "");
 
       console.log('Payment transaction:', {
-        chainId: CELESTIA_TESTNET_CONFIG.chainId,
+        chainId: CELESTIA_CHAIN_CONFIG.chainId,
         from: this.state.address,
         to: recipientAddress,
         amount: amountValue,
@@ -285,16 +341,16 @@ export class KeplrWallet {
       });
 
       // Enable Keplr for the chain
-      await window.keplr.enable(CELESTIA_TESTNET_CONFIG.chainId);
+      await window.keplr.enable(CELESTIA_CHAIN_CONFIG.chainId);
 
       // Get the offline signer
-      const offlineSigner = window.keplr.getOfflineSigner(CELESTIA_TESTNET_CONFIG.chainId);
+      const offlineSigner = window.keplr.getOfflineSigner(CELESTIA_CHAIN_CONFIG.chainId);
       const accounts = await offlineSigner.getAccounts();
 
       console.log('Got Keplr offline signer and accounts');
 
       // Get amino signer for transaction signing
-      const aminoSigner = window.keplr.getOfflineSignerOnlyAmino(CELESTIA_TESTNET_CONFIG.chainId);
+      const aminoSigner = window.keplr.getOfflineSignerOnlyAmino(CELESTIA_CHAIN_CONFIG.chainId);
 
       console.log('Getting account info via API...');
 
@@ -306,7 +362,7 @@ export class KeplrWallet {
 
       // Create transaction document with real account info
       const signDoc = {
-        chain_id: CELESTIA_TESTNET_CONFIG.chainId,
+        chain_id: CELESTIA_CHAIN_CONFIG.chainId,
         account_number: accountInfo.account_number?.toString() || "0",
         sequence: accountInfo.sequence?.toString() || "0",
         fee: {
